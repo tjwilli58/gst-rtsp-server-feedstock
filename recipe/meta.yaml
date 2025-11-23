@@ -9,7 +9,7 @@ source:
     sha256: 5c0ab4822d8dc381f1449abefcfcde0ba6fdb4be58f84002522923965e3b1293
 
 build:
-  number: 2
+  number: 3
   ignore_run_exports_from:
     - python      # [build_platform != target_platform]
     - python_abi  # [build_platform != target_platform]
@@ -30,6 +30,7 @@ requirements:
   host:
     - gstreamer {{ version }}
     - gst-plugins-base {{ version }}
+    - gobject-introspection
     - glib
     - libintl-devel  # [not linux]
     - libiconv
@@ -45,9 +46,9 @@ test:
     - test -f $PREFIX/include/gstreamer-1.0/gst/rtsp-server/rtsp-server.h  # [unix]
     - test -f $PREFIX/lib/libgstrtspserver-1.0${SHLIB_EXT}  # [unix]
     - test -f $PREFIX/lib/gstreamer-1.0/libgstrtspclientsink${SHLIB_EXT}  # [unix]
-    - if not exist %LIBRARY_PREFIX%\\include\\gstreamer-1.0\\gst\\rtsp-server\\rtsp-server.h exit 1  # [win]
-    - if not exist %LIBRARY_PREFIX%\\bin\\gstrtspserver-1.0-0.dll exit 1                    # [win]
-    - if not exist %LIBRARY_PREFIX%\\lib\\gstreamer-1.0\\gstrtspclientsink.dll exit 1  # [win]
+    - if not exist %LIBRARY_INC%\\gstreamer-1.0\\gst\\rtsp-server\\rtsp-server.h exit 1  # [win]
+    - if not exist %LIBRARY_BIN%\\gstrtspserver-1.0-0.dll exit 1                    # [win]
+    - if not exist %LIBRARY_LIB%\\gstreamer-1.0\\gstrtspclientsink.dll exit 1  # [win]
     - gst-inspect-1.0 --plugin rtspclientsink  # [win]
 about:
   home: http://gstreamer.freedesktop.org/
