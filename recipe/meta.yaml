@@ -1,4 +1,4 @@
-{% set version = "1.28.1" %}
+{% set version = "1.28.2" %}
 
 package:
   name: gst-rtsp-server
@@ -6,7 +6,7 @@ package:
 
 source:
   - url: https://gstreamer.freedesktop.org/src/gst-rtsp-server/gst-rtsp-server-{{ version }}.tar.xz
-    sha256: 6cd0e86af20cfb749bdc24d2f5c30f4e60a3e8d198ae4e02e754b9937bdbf832
+    sha256: 917c58b9ff14f91a6b5cd1c3af16c9fcfdf5d8d78d3d167c7e8fa5bdda35f947
 
 build:
   number: 0
