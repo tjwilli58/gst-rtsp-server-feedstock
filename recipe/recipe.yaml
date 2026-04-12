@@ -54,19 +54,16 @@ requirements:
 tests:
   - script:
       - if: unix
-        then: test -f $PREFIX/include/gstreamer-1.0/gst/rtsp-server/rtsp-server.h
-      - if: unix
-        then: test -f $PREFIX/lib/libgstrtspserver-1.0${SHLIB_EXT}
-      - if: unix
-        then: test -f $PREFIX/lib/gstreamer-1.0/libgstrtspclientsink${SHLIB_EXT}
+        then: 
+            - test -f $PREFIX/include/gstreamer-1.0/gst/rtsp-server/rtsp-server.h
+            - test -f $PREFIX/lib/libgstrtspserver-1.0${SHLIB_EXT}
+            - test -f $PREFIX/lib/gstreamer-1.0/libgstrtspclientsink${SHLIB_EXT}
       - if: win
-        then: if not exist %LIBRARY_INC%\\gstreamer-1.0\\gst\\rtsp-server\\rtsp-server.h exit 1
-      - if: win
-        then: if not exist %LIBRARY_BIN%\\gstrtspserver-1.0-0.dll exit 1
-      - if: win
-        then: if not exist %LIBRARY_LIB%\\gstreamer-1.0\\gstrtspclientsink.dll exit 1
-      - if: win
-        then: gst-inspect-1.0 --plugin rtspclientsink
+        then: 
+            - if not exist %LIBRARY_INC%\\gstreamer-1.0\\gst\\rtsp-server\\rtsp-server.h exit 1
+            - if not exist %LIBRARY_BIN%\\gstrtspserver-1.0-0.dll exit 1
+            - if not exist %LIBRARY_LIB%\\gstreamer-1.0\\gstrtspclientsink.dll exit 1
+            - gst-inspect-1.0 --plugin rtspclientsink
 
 about:
   summary: GStreamer RTSP Server
