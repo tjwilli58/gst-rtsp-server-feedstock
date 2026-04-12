@@ -1,0 +1,83 @@
+schema_version: 1
+
+context:
+  version: "1.28.2"
+
+package:
+  name: gst-rtsp-server
+  version: ${{ version }}
+
+source:
+  - url: https://gstreamer.freedesktop.org/src/gst-rtsp-server/gst-rtsp-server-${{ version }}.tar.xz
+    sha256: 917c58b9ff14f91a6b5cd1c3af16c9fcfdf5d8d78d3d167c7e8fa5bdda35f947
+
+build:
+  number: 1
+
+requirements:
+  build:
+    - ${{ compiler('c') }}
+    - ${{ stdlib('c') }}
+    - ${{ compiler('cxx') }}
+    - pkg-config
+    - meson
+    - ninja
+    - gettext-tools
+    - gobject-introspection
+    - if: build_platform != target_platform
+      then: cross-python_${{ target_platform }}
+    - python <${{ 3.15 }}
+    - setuptools <81
+  host:
+    - gstreamer 1.28.2.*
+    - gst-plugins-base 1.28.2.*
+    - gobject-introspection
+    - glib
+    - if: not linux
+      then: libintl-devel
+    - libiconv
+    - zlib
+  run:
+    - gstreamer 1.28.2.*
+    - gst-plugins-base 1.28.2.*
+    - if: not ppc64le
+      then: libsoup
+    - if: not ppc64le
+      then: glib-networking
+  ignore_run_exports:
+    from_package:
+      - if: build_platform != target_platform
+        then: python
+      - if: build_platform != target_platform
+        then: python_abi
+
+tests:
+  - script:
+      - if: unix
+        then: test -f $PREFIX/include/gstreamer-1.0/gst/rtsp-server/rtsp-server.h
+      - if: unix
+        then: test -f $PREFIX/lib/libgstrtspserver-1.0${SHLIB_EXT}
+      - if: unix
+        then: test -f $PREFIX/lib/gstreamer-1.0/libgstrtspclientsink${SHLIB_EXT}
+      - if: win
+        then: if not exist %LIBRARY_INC%\\gstreamer-1.0\\gst\\rtsp-server\\rtsp-server.h exit 1
+      - if: win
+        then: if not exist %LIBRARY_BIN%\\gstrtspserver-1.0-0.dll exit 1
+      - if: win
+        then: if not exist %LIBRARY_LIB%\\gstreamer-1.0\\gstrtspclientsink.dll exit 1
+      - if: win
+        then: gst-inspect-1.0 --plugin rtspclientsink
+
+about:
+  summary: GStreamer RTSP Server
+  description: |
+    GStreamer RTSP Server is a library on top of GStreamer for building an RTSP server.
+  license: LGPL-2.1-or-later
+  license_file: COPYING
+  homepage: http://gstreamer.freedesktop.org/
+  repository: https://gitlab.freedesktop.org/gstreamer/gstreamer/-/tree/main/subprojects/gst-rtsp-server
+  documentation: https://gstreamer.freedesktop.org/modules/gst-rtsp-server.html
+
+extra:
+  recipe-maintainers:
+    - tjwilli58
