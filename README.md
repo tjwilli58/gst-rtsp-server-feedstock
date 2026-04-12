@@ -15,7 +15,6 @@ Documentation: https://gstreamer.freedesktop.org/modules/gst-rtsp-server.html
 
 GStreamer RTSP Server is a library on top of GStreamer for building an RTSP server.
 
-
 Current build status
 ====================
 
