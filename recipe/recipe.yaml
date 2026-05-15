@@ -38,7 +38,7 @@ requirements:
     - libiconv
     - zlib
   run:
-    - gstreamer 1.28.2.*
+    - gstreamer ==${{ version }}
     - gst-plugins-base 1.28.2.*
     - if: not ppc64le
       then:
