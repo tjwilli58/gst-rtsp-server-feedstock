@@ -1,7 +1,7 @@
 schema_version: 1
 
 context:
-  version: "1.28.4"
+  version: "1.28.5"
 
 package:
   name: gst-rtsp-server
@@ -9,7 +9,7 @@ package:
 
 source:
   - url: https://gstreamer.freedesktop.org/src/gst-rtsp-server/gst-rtsp-server-${{ version }}.tar.xz
-    sha256: bfb6780542bf0d402736232aeae6c5a1b943c445775bf40305bcb86ca70705a0
+    sha256: 7e19fddeb1261bebc3ec397857fedd5c77129b66ab52788fdadad05117566225
 
 build:
   number: 0
